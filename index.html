@@ -2,72 +2,20 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>英会話ドリル - ホテル編</title>
+  <title>ホテル英会話ドリル（クイズ形式）</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>英会話ドリル - ホテル編</h1>
+  <h1>ホテル英会話ドリル - クイズ形式</h1>
 
-  <div id="hotel-questions" class="section">
-    <div class="card hotel">
-      <p class="jp">チェックインをお願いします。</p>
-      <p class="en">I'd like to check in, please.</p>
-      <button onclick="playAudio(1)">▶ 音声</button>
+  <div id="quiz-container">
+    <div id="question-box">
+      <p id="question-text">読み込み中...</p>
+      <button id="play-question">▶ 問題を再生</button>
     </div>
-
-    <div class="card hotel">
-      <p class="jp">予約があります。</p>
-      <p class="en">I have a reservation.</p>
-      <button onclick="playAudio(2)">▶ 音声</button>
-    </div>
-
-    <div class="card hotel">
-      <p class="jp">名前は○○です。</p>
-      <p class="en">My name is ○○.</p>
-      <button onclick="playAudio(3)">▶ 音声</button>
-    </div>
-
-    <div class="card hotel">
-      <p class="jp">パスポートを見せます。</p>
-      <p class="en">Here is my passport.</p>
-      <button onclick="playAudio(4)">▶ 音声</button>
-    </div>
-
-    <div class="card hotel">
-      <p class="jp">禁煙の部屋をお願いします。</p>
-      <p class="en">A non-smoking room, please.</p>
-      <button onclick="playAudio(5)">▶ 音声</button>
-    </div>
-
-    <div class="card hotel">
-      <p class="jp">Wi-Fiは使えますか？</p>
-      <p class="en">Do you have Wi-Fi?</p>
-      <button onclick="playAudio(6)">▶ 音声</button>
-    </div>
-
-    <div class="card hotel">
-      <p class="jp">チェックアウトは何時ですか？</p>
-      <p class="en">What time is check-out?</p>
-      <button onclick="playAudio(7)">▶ 音声</button>
-    </div>
-
-    <div class="card hotel">
-      <p class="jp">荷物を預けてもいいですか？</p>
-      <p class="en">Can I leave my luggage here?</p>
-      <button onclick="playAudio(8)">▶ 音声</button>
-    </div>
-
-    <div class="card hotel">
-      <p class="jp">タクシーを呼んでもらえますか？</p>
-      <p class="en">Can you call a taxi for me?</p>
-      <button onclick="playAudio(9)">▶ 音声</button>
-    </div>
-
-    <div class="card hotel">
-      <p class="jp">ありがとうございました。</p>
-      <p class="en">Thank you very much.</p>
-      <button onclick="playAudio(10)">▶ 音声</button>
-    </div>
+    <div id="choices"></div>
+    <div id="feedback"></div>
+    <button id="next-button" style="display:none;">次の問題 ▶</button>
   </div>
 
   <script src="script.js"></script>
