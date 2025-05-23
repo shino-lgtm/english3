@@ -1,86 +1,164 @@
 const quizData = [
   {
-    questionEn: "I'd like to check in, please.",
+    jp: "チェックインをお願いします。",
+    en: "I'd like to check in, please.",
     choices: [
       "I'd like to check in, please.",
-      "I'd like some breakfast, please.",
-      "Could you call a taxi, please?"
+      "Can you call a taxi for me?",
+      "Do you have Wi-Fi?"
     ],
-    answerIndex: 0
+    audio: "audio/1.mp3"
   },
   {
-    questionEn: "Could you keep my luggage until 3 p.m.?",
+    jp: "予約があります。",
+    en: "I have a reservation.",
     choices: [
-      "Could you keep my luggage until 3 p.m.?",
-      "Can I order breakfast?",
-      "Please clean my room."
+      "I have a reservation.",
+      "Here is my passport.",
+      "What time is check-out?"
     ],
-    answerIndex: 0
+    audio: "audio/2.mp3"
   },
   {
-    questionEn: "Is breakfast included?",
+    jp: "名前は○○です。",
+    en: "My name is ○○.",
     choices: [
-      "Is breakfast included?",
-      "What time is breakfast?",
-      "I'd like to cancel breakfast."
+      "My name is ○○.",
+      "A non-smoking room, please.",
+      "Thank you very much."
     ],
-    answerIndex: 0
+    audio: "audio/3.mp3"
+  },
+  {
+    jp: "パスポートを見せます。",
+    en: "Here is my passport.",
+    choices: [
+      "Here is my passport.",
+      "Do you have Wi-Fi?",
+      "Can I leave my luggage here?"
+    ],
+    audio: "audio/4.mp3"
+  },
+  {
+    jp: "禁煙の部屋をお願いします。",
+    en: "A non-smoking room, please.",
+    choices: [
+      "A non-smoking room, please.",
+      "I'd like to check in, please.",
+      "Can you call a taxi for me?"
+    ],
+    audio: "audio/5.mp3"
+  },
+  {
+    jp: "Wi-Fiは使えますか？",
+    en: "Do you have Wi-Fi?",
+    choices: [
+      "Do you have Wi-Fi?",
+      "My name is ○○.",
+      "What time is check-out?"
+    ],
+    audio: "audio/6.mp3"
+  },
+  {
+    jp: "チェックアウトは何時ですか？",
+    en: "What time is check-out?",
+    choices: [
+      "What time is check-out?",
+      "Thank you very much.",
+      "I have a reservation."
+    ],
+    audio: "audio/7.mp3"
+  },
+  {
+    jp: "荷物を預けてもいいですか？",
+    en: "Can I leave my luggage here?",
+    choices: [
+      "Can I leave my luggage here?",
+      "Do you have Wi-Fi?",
+      "Here is my passport."
+    ],
+    audio: "audio/8.mp3"
+  },
+  {
+    jp: "タクシーを呼んでもらえますか？",
+    en: "Can you call a taxi for me?",
+    choices: [
+      "Can you call a taxi for me?",
+      "A non-smoking room, please.",
+      "My name is ○○."
+    ],
+    audio: "audio/9.mp3"
+  },
+  {
+    jp: "ありがとうございました。",
+    en: "Thank you very much.",
+    choices: [
+      "Thank you very much.",
+      "I'd like to check in, please.",
+      "Can I leave my luggage here?"
+    ],
+    audio: "audio/10.mp3"
   }
 ];
 
-let currentQuestionIndex = 0;
+let currentQuestion = 0;
 
 const questionText = document.getElementById('question-text');
-const choicesDiv = document.getElementById('choices');
-const playBtn = document.getElementById('play-question');
-const feedbackDiv = document.getElementById('feedback');
-const nextBtn = document.getElementById('next-button');
+const playButton = document.getElementById('play-question');
+const choicesContainer = document.getElementById('choices');
+const feedback = document.getElementById('feedback');
+const nextButton = document.getElementById('next-button');
 
-function loadQuestion() {
-  const current = quizData[currentQuestionIndex];
-  questionText.textContent = current.questionEn; // 英文の問題文表示
+function showQuestion() {
+  const q = quizData[currentQuestion];
+  questionText.textContent = `Q${currentQuestion + 1}: ${q.jp}`;
+  feedback.textContent = '';
+  nextButton.style.display = 'none';
 
-  choicesDiv.innerHTML = '';
-  current.choices.forEach((choice, i) => {
-    const label = document.createElement('label');
-    const radio = document.createElement('input');
-    radio.type = 'radio';
-    radio.name = 'choice';
-    radio.value = i;
-    label.appendChild(radio);
-    label.appendChild(document.createTextNode(choice));
-    choicesDiv.appendChild(label);
-    choicesDiv.appendChild(document.createElement('br'));
+  playAudio(q.audio);
+
+  choicesContainer.innerHTML = '';
+  q.choices.forEach(choice => {
+    const btn = document.createElement('button');
+    btn.textContent = choice;
+    btn.classList.add('choice-btn');
+    btn.onclick = () => checkAnswer(choice, q.en, q.audio);
+    choicesContainer.appendChild(btn);
   });
-
-  feedbackDiv.textContent = '';
-  nextBtn.style.display = 'none';
 }
 
-playBtn.addEventListener('click', () => {
-  const current = quizData[currentQuestionIndex];
-  const utterance = new SpeechSynthesisUtterance(current.questionEn);
-  utterance.lang = 'en-US';
-  speechSynthesis.speak(utterance);
-});
-
-choicesDiv.addEventListener('change', e => {
-  const current = quizData[currentQuestionIndex];
-  if (parseInt(e.target.value) === current.answerIndex) {
-    feedbackDiv.textContent = 'Correct!';
+function checkAnswer(selected, correct, audio) {
+  if (selected === correct) {
+    feedback.textContent = '✅ 正解！';
+    playAudio(audio);
   } else {
-    feedbackDiv.textContent = 'Try again.';
+    feedback.textContent = '❌ 不正解...';
   }
-  nextBtn.style.display = 'inline-block';
-});
+  nextButton.style.display = 'inline-block';
+  Array.from(document.getElementsByClassName('choice-btn')).forEach(btn => btn.disabled = true);
+}
 
-nextBtn.addEventListener('click', () => {
-  currentQuestionIndex++;
-  if (currentQuestionIndex >= quizData.length) {
-    alert('Quiz complete! Well done!');
-    currentQuestionIndex = 0;
+function playAudio(src) {
+  const audio = new Audio(src);
+  audio.play();
+}
+
+playButton.onclick = () => {
+  const q = quizData[currentQuestion];
+  playAudio(q.audio);
+};
+
+nextButton.onclick = () => {
+  currentQuestion++;
+  if (currentQuestion < quizData.length) {
+    showQuestion();
+  } else {
+    questionText.textContent = "🎉 お疲れさまでした！全問終了です。";
+    choicesContainer.innerHTML = '';
+    feedback.textContent = '';
+    nextButton.style.display = 'none';
+    playButton.style.display = 'none';
   }
-  loadQuestion();
-});
+};
 
-loadQuestion();
+showQuestion();
