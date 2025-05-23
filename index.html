@@ -1,23 +1,114 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>ホテル英会話ドリル（クイズ形式）</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hotel English Drill</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #fff0f5;
+      padding: 20px;
+    }
+    h1 {
+      color: #d63384;
+    }
+    .question {
+      margin-bottom: 20px;
+      padding: 10px;
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 0 5px #ccc;
+    }
+    .q {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .choices label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    .play-btn {
+      margin-left: 8px;
+      cursor: pointer;
+      font-size: 1em;
+      background: none;
+      border: none;
+    }
+  </style>
 </head>
 <body>
-  <h1>ホテル英会話ドリル - クイズ形式</h1>
+  <h1>Hotel English Drill</h1>
 
-  <div id="quiz-container">
-    <div id="question-box">
-      <p id="question-text">読み込み中...</p>
-      <button id="play-question">▶ 問題を再生</button>
+  <div class="question">
+    <p class="q">
+      I'd like to check in, please.
+      <button class="play-btn" data-text="I'd like to check in, please.">🔊</button>
+    </p>
+    <div class="choices">
+      <label><input type="radio" name="q1"> I'd like to check in, please.</label>
+      <label><input type="radio" name="q1"> I'd like some breakfast, please.</label>
+      <label><input type="radio" name="q1"> Can I get a taxi, please?</label>
     </div>
-    <div id="choices"></div>
-    <div id="feedback"></div>
-    <button id="next-button" style="display:none;">次の問題 ▶</button>
   </div>
 
-  <script src="script.js"></script>
+  <div class="question">
+    <p class="q">
+      Could you keep my luggage until 3 p.m.?
+      <button class="play-btn" data-text="Could you keep my luggage until 3 p.m.?">🔊</button>
+    </p>
+    <div class="choices">
+      <label><input type="radio" name="q2"> Could you keep my luggage until 3 p.m.?</label>
+      <label><input type="radio" name="q2"> Can I order breakfast?</label>
+      <label><input type="radio" name="q2"> Please clean my room.</label>
+    </div>
+  </div>
+
+  <div class="question">
+    <p class="q">
+      Is breakfast included?
+      <button class="play-btn" data-text="Is breakfast included?">🔊</button>
+    </p>
+    <div class="choices">
+      <label><input type="radio" name="q3"> Is breakfast included?</label>
+      <label><input type="radio" name="q3"> What time is breakfast?</label>
+      <label><input type="radio" name="q3"> I’d like to cancel breakfast.</label>
+    </div>
+  </div>
+
+  <div class="question">
+    <p class="q">
+      I'd like to check out, please.
+      <button class="play-btn" data-text="I'd like to check out, please.">🔊</button>
+    </p>
+    <div class="choices">
+      <label><input type="radio" name="q4"> I'd like to check out, please.</label>
+      <label><input type="radio" name="q4"> I'd like to check in, please.</label>
+      <label><input type="radio" name="q4"> I'd like to cancel my reservation.</label>
+    </div>
+  </div>
+
+  <div class="question">
+    <p class="q">
+      Can I get a receipt?
+      <button class="play-btn" data-text="Can I get a receipt?">🔊</button>
+    </p>
+    <div class="choices">
+      <label><input type="radio" name="q5"> Can I get a receipt?</label>
+      <label><input type="radio" name="q5"> Can I get a room key?</label>
+      <label><input type="radio" name="q5"> Can I make a phone call?</label>
+    </div>
+  </div>
+
+  <script>
+    document.querySelectorAll('.play-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const text = btn.getAttribute('data-text');
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'en-US';
+        speechSynthesis.speak(utterance);
+      });
+    });
+  </script>
 </body>
 </html>
