@@ -1,99 +1,23 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>English Drill 3 - Hotel</title>
-  <style>
-    body {
-      font-family: sans-serif;
-      background-color: #fff0f5;
-      padding: 20px;
-    }
-    h1 {
-      color: #d63384;
-    }
-    .question {
-      margin-bottom: 20px;
-      padding: 15px;
-      background: #ffffff;
-      border-radius: 10px;
-      box-shadow: 0 0 5px #ccc;
-    }
-    .q {
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
-    .choices label {
-      display: block;
-      margin-bottom: 5px;
-      cursor: pointer;
-    }
-    .play-btn {
-      margin-left: 10px;
-      cursor: pointer;
-      font-size: 1em;
-      background: none;
-      border: none;
-    }
-  </style>
+  <meta charset="UTF-8">
+  <title>ホテル英会話ドリル（クイズ形式）</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Hotel English Drill</h1>
+  <h1>ホテル英会話ドリル - クイズ形式</h1>
 
-  <div class="question">
-    <p class="q">
-      Can I have a wake-up call at 6 a.m.?
-      <button class="play-btn" data-text="Can I have a wake-up call at 6 a.m.?">🔊</button>
-    </p>
-    <div class="choices">
-      <label><input type="radio" name="q1"> 6時に起こしてもらえますか？</label>
-      <label><input type="radio" name="q1"> 朝食を6時に取りたいです。</label>
-      <label><input type="radio" name="q1"> 午後6時にチェックインします。</label>
+  <div id="quiz-container">
+    <div id="question-box">
+      <p id="question-text">読み込み中...</p>
+      <button id="play-question">▶ 問題を再生</button>
     </div>
+    <div id="choices"></div>
+    <div id="feedback"></div>
+    <button id="next-button" style="display:none;">次の問題 ▶</button>
   </div>
 
-  <div class="question">
-    <p class="q">
-      Could you keep my luggage until 3 p.m.?
-      <button class="play-btn" data-text="Could you keep my luggage until 3 p.m.?">🔊</button>
-    </p>
-    <div class="choices">
-      <label><input type="radio" name="q2"> 午後3時まで荷物を預かってもらえますか？</label>
-      <label><input type="radio" name="q2"> 午後3時に部屋を掃除してください。</label>
-      <label><input type="radio" name="q2"> 荷物を3階まで運んでください。</label>
-    </div>
-  </div>
-
-  <div class="question">
-    <p class="q">
-      Is breakfast included?
-      <button class="play-btn" data-text="Is breakfast included?">🔊</button>
-    </p>
-    <div class="choices">
-      <label><input type="radio" name="q3"> 朝食は含まれていますか？</label>
-      <label><input type="radio" name="q3"> 朝食は何時ですか？</label>
-      <label><input type="radio" name="q3"> 朝食を注文します。</label>
-    </div>
-  </div>
-
-  <div class="question">
-    <p class="q">
-      I’d like to check out, please.
-      <button class="play-btn" data-text="I'd like to check out, please.">🔊</button>
-    </p>
-    <div class="choices">
-      <label><input type="radio" name="q4"> チェックアウトをお願いします。</label>
-      <label><input type="radio" name="q4"> チェックインをお願いします。</label>
-      <label><input type="radio" name="q4"> 荷物をチェックします。</label>
-    </div>
-  </div>
-
-  <div class="question">
-    <p class="q">
-      Can I get a receipt?
-      <button class="play-btn" data-text="Can I get a receipt?">🔊</button>
-    </p>
-    <div class="choices">
-      <label><input type="radio" name="q5"> 領収書をもらえますか？</label>
-      <label><input type
+  <script src="script.js"></script>
+</body>
+</html>
